@@ -1,0 +1,1 @@
+require_relative 'delayed_job_progress/version'
