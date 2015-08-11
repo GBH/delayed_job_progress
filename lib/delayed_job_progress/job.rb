@@ -17,7 +17,10 @@ Delayed::Backend::ActiveRecord::Job.class_eval do
     if destroy_completed_jobs? || force_destroy
       super()
     else
-      update_column(:completed_at, Time.zone.now)
+      update_columns(
+        :completed_at     => Time.zone.now,
+        :progress_current => self.progress_max
+      )
     end
   end
 end
