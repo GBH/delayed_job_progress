@@ -1,1 +1,1 @@
-# Delayed::Job::Progress
+# Delayed::Job Progress
