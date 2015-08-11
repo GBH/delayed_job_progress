@@ -50,10 +50,10 @@ That job knows about object that spawned it:
 ```
 
 `Delayed::Job` records now have new attributes:
-* `process_max`
+* `process_max` - default is `100`. You can change it to whatever during `enqueue`.
 * `process_current` - default is `0`. You can manually increment it while job is running. Will be set to `process_max` when job completes.
-* `process_state`
-* `completed_at`
+* `process_state` - default is `nil`. Optional informational string.
+* `completed_at` - when job is done this timestamp is recorded.
 
 This extension also introduces worker setting that keeps completed jobs around. This way you can keep list of completed jobs for a while. If you want to remove them, you need to `.destroy(:force)` them.
 ```
