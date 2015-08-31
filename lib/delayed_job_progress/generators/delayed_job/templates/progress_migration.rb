@@ -1,6 +1,6 @@
 class AddProgressToDelayedJobs < ActiveRecord::Migration
 
-  def change
+  def self.up
     change_table :delayed_jobs do |t|
       t.string    :identifier
       t.string    :record_type
@@ -14,6 +14,16 @@ class AddProgressToDelayedJobs < ActiveRecord::Migration
     add_index :delayed_jobs, :identifier
     add_index :delayed_jobs, [:record_type, :record_id]
     add_index :delayed_jobs, :completed_at
+  end
+
+  def self.down
+    remove_column :delayed_jobs, :identifier
+    remove_column :delayed_jobs, :record_type
+    remove_column :delayed_jobs, :record_id
+    remove_column :delayed_jobs, :progress_current
+    remove_column :delayed_jobs, :progress_max
+    remove_column :delayed_jobs, :progress_state
+    remove_column :delayed_jobs, :completed_at
   end
 
 end
