@@ -1,6 +1,6 @@
-# Delayed::Job Progress
+# DelayedJobProgress
 
-Extension for `DelayedJob` that allows better tracking of jobs!
+Extension for `Delayed::Job` that allows better tracking of jobs!
 
 ## Setup
 
@@ -30,7 +30,22 @@ If you're using custom jobs you'll need to do something like this:
 ```ruby
 class CustomUserJob < Struct.new(:user_id)
   def enqueue(job)
-    job.record = User.find(user_id)
+    job.record            = User.find(user_id)
+    job.identifier        = 'unique_identifier'
+    job.progress_max      = 100
+    job.progress_current  = 0
+  end
+
+  def before(job)
+    @job = job
+  end
+
+  def perform
+    @job.update_column(:progress_state, 'working')
+    (0..100).each do |i|
+      @job.update_column(:progress_current, i)
+    end
+    @job.update_column(:progress_state, 'complete')
   end
 end
 
