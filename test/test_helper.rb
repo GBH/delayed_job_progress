@@ -33,6 +33,7 @@ class TestJob < Struct.new(:thing_id)
     job.identifier        = 'unique_identifier'
     job.progress_max      = 1000
     job.progress_current  = 500
+    job.progress_state    = 'initialized'
     job.queue             = 'reports'
   end
 

@@ -12,9 +12,7 @@ class WorkerTest < ActiveSupport::TestCase
 
   def test_run_job
     thing = Thing.create(:name => 'test')
-    Delayed::Job.enqueue TestJob.new(thing.id)
-
-    job = Delayed::Job.last
+    job = Delayed::Job.enqueue(TestJob.new(thing.id))
 
     worker = Delayed::Worker.new
     worker.run(job)

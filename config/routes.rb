@@ -1,3 +1,5 @@
 DelayedJobProgress::Engine.routes.draw do
-  resources :jobs
+  resources :jobs do
+    post :reload, :on => :member
+  end
 end
