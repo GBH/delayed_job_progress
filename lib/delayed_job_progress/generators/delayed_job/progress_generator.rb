@@ -7,7 +7,7 @@ module DelayedJob
     source_paths << File.join(File.dirname(__FILE__), 'templates')
 
     def create_migration_file
-      migration_template 'migrate/progress_migration.rb', 'db/migrate/add_progress_to_delayed_jobs.rb'
+      migration_template 'progress_migration.rb', 'db/migrate/add_progress_to_delayed_jobs.rb'
     end
 
     def self.next_migration_number(dirname)
