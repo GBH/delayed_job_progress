@@ -62,16 +62,9 @@ Delayed::Worker.destroy_completed_jobs = false
 
 ## Jobs Controller
 
-`GET /jobs`
-
-List all jobs. Can filter based on associated record via `record_type` and `record_id` parameters. `identifier` parameter can be used as well.
-
-`GET /jobs/<id>`
-Status of a job. Will see all the Delayed::Job attributes including things like progress.
-
-`DELETE /jobs/<id>`
-If job is stuck/failed, we can remove it
-
-`POST /jobs/<id>/restart`
-Restart failed job.
+| -- | -- |
+| `GET /jobs`| List all jobs. Can filter based on associated record via `record_type` and `record_id` parameters. `identifier` parameter can be used as well. |
+| `GET /jobs/<id>` | Status of a job. Will see all the Delayed::Job attributes including things like progress. |
+| `DELETE /jobs/<id>` | If job is stuck/failed, we can remove it |
+| `POST /jobs/<id>/restart` | Restart failed job. |
 
