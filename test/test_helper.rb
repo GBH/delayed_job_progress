@@ -15,5 +15,15 @@ require_relative '../lib/delayed_job_progress/generators/delayed_job/templates/p
 ActiveRecord::Schema.define do
   CreateDelayedJobs.up
   AddProgressToDelayedJobs.up
+
+  create_table :things do |t|
+    t.string :name
+  end
+end
+
+class Thing < ActiveRecord::Base
+  def something
+    update_column(:name, 'processed')
+  end
 end
 
