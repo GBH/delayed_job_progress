@@ -17,7 +17,7 @@ Consider this:
 ```ruby
 class User < ActiveRecord::Base
   # convenient relationship to grab associated jobs
-  has_many :jobs, :as => :record, :class_name => 'DelayedJob'
+  has_many :jobs, :as => :record, :class_name => 'Delayed::Job'
 end
 ```
 
