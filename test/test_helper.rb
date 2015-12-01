@@ -10,7 +10,7 @@ Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 # loading db schema
 require 'generators/delayed_job/templates/migration'
-require_relative '../lib/delayed_job_progress/generators/delayed_job/templates/progress_migration'
+require_relative '../lib/generators/delayed_job/templates/progress_migration'
 
 ActiveRecord::Schema.define do
   CreateDelayedJobs.up

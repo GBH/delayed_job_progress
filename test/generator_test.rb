@@ -1,5 +1,5 @@
 require_relative './test_helper'
-require_relative '../lib/delayed_job_progress/generators/delayed_job/progress_generator'
+require_relative '../lib/generators/delayed_job/progress_generator'
 
 class ScaffoldGeneratorTest < Rails::Generators::TestCase
   destination File.expand_path('../tmp', File.dirname(__FILE__))
