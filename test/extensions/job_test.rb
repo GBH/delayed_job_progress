@@ -71,4 +71,24 @@ class JobTest < ActiveSupport::TestCase
     end
   end
 
+  def test_job_reserve_completed
+    thing = Thing.create(:name => 'test')
+    worker = Delayed::Worker.new
+    job = Delayed::Job.enqueue(TestJob.new(thing.id))
+
+    # marking it as complete
+    job.update_column(:completed_at, Time.now)
+    Delayed::Job.reserve(worker)
+    job.reload
+    assert job.locked_at.nil?
+    assert job.locked_by.nil?
+
+    # and here's the default
+    job.update_column(:completed_at, nil)
+    Delayed::Job.reserve(worker)
+    job.reload
+    refute job.locked_at.nil?
+    refute job.locked_by.nil?
+  end
+
 end
