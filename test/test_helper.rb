@@ -14,7 +14,7 @@ require_relative '../lib/generators/delayed_job/templates/progress_migration'
 
 ActiveRecord::Schema.define do
   CreateDelayedJobs.up
-  AddProgressToDelayedJobs.up
+  AddProgressToDelayedJobs.new.change
 
   create_table :things do |t|
     t.string :name
