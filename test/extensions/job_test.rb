@@ -27,6 +27,7 @@ class JobTest < ActiveSupport::TestCase
     assert_equal 1000, job.progress_max
     assert_equal 'unique_identifier', job.identifier
     assert_equal 'reports', job.queue
+    assert_equal 'TestJob', job.handler_class
   end
 
   def test_job_enqueue_with_existing_identifier

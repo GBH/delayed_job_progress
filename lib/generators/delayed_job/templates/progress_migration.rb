@@ -5,6 +5,7 @@ class AddProgressToDelayedJobs < ActiveRecord::Migration
       t.string    :identifier
       t.string    :record_type
       t.integer   :record_id
+      t.string    :handler_class
       t.integer   :progress_current,  :null => false, :default => 0
       t.integer   :progress_max,      :null => false, :default => 100
       t.string    :progress_state
@@ -13,6 +14,7 @@ class AddProgressToDelayedJobs < ActiveRecord::Migration
 
     add_index :delayed_jobs, :identifier
     add_index :delayed_jobs, [:record_type, :record_id]
+    add_index :delayed_jobs, :handler_class
     add_index :delayed_jobs, :completed_at
   end
 
