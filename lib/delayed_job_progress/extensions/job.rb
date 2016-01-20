@@ -1,6 +1,10 @@
 Delayed::Backend::ActiveRecord::Job.class_eval do
-
   belongs_to :record, :polymorphic => true
+
+  has_attached_file :file,
+    :path => ':rails_root/public/system/:attachment/:id/:style/:filename',
+    :url  => '/system/:attachment/:id/:style/:filename'
+  do_not_validate_attachment_file_type :file
 
   # Overriding default scope so we don't select already completed jobs
   def self.ready_to_run(worker_name, max_run_time)

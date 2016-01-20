@@ -1,7 +1,6 @@
 module DelayedJobProgress
   class JobsController < ActionController::Base
-
-    before_action :load_job, :only => [:show, :destroy, :reload]
+    before_action :load_job, :only => [:show, :destroy, :reload, :download]
 
     def index
       jobs = Delayed::Job
@@ -35,6 +34,10 @@ module DelayedJobProgress
         :attempts     => 0
       )
       render :json => @job
+    end
+
+    def download
+      send_file @job.file.path, :filename => @job.file_file_name
     end
 
   protected
