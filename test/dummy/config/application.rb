@@ -4,6 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require "delayed_job_progress"
+require 'paperclip'
 
 module Dummy
   class Application < Rails::Application
