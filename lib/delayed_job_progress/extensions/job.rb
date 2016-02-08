@@ -1,6 +1,6 @@
 Delayed::Backend::ActiveRecord::Job.class_eval do
 
-  belongs_to :record, :polymorphic => true
+  belongs_to :record, polymorphic: true
 
   # Overriding default scope so we don't select already completed jobs
   def self.ready_to_run(worker_name, max_run_time)
@@ -20,7 +20,7 @@ Delayed::Backend::ActiveRecord::Job.class_eval do
     if name == :enqueue
       self.handler_class = payload_object.class.to_s
       if self.identifier.present?
-        if Delayed::Job.where(:identifier => self.identifier, :completed_at => nil, :failed_at => nil).any?
+        if Delayed::Job.where(identifier: self.identifier, completed_at: nil, failed_at: nil).any?
           raise DelayedJobProgress::DuplicateJobError, "Delayed::Job with identifier: #{self.identifier} already present"
         end
       end
@@ -47,10 +47,10 @@ Delayed::Backend::ActiveRecord::Job.class_eval do
       super()
     else
       update_columns(
-        :completed_at     => Time.zone.now,
-        :progress_current => self.progress_max,
-        :locked_at        => nil,
-        :locked_by        => nil
+        completed_at:     Time.zone.now,
+        progress_current: self.progress_max,
+        locked_at:        nil,
+        locked_by:        nil
       )
     end
   end

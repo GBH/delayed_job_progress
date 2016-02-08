@@ -7,7 +7,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   def test_job_default
-    thing = Thing.create(:name => 'test')
+    thing = Thing.create(name: 'test')
     thing.delay.something
 
     job = Delayed::Job.last
@@ -19,7 +19,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   def test_job_custom
-    thing = Thing.create(:name => 'test')
+    thing = Thing.create(name: 'test')
     job = Delayed::Job.enqueue(TestJob.new(thing.id))
 
     assert_equal thing, job.record
@@ -31,7 +31,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   def test_job_enqueue_with_existing_identifier
-    thing = Thing.create(:name => 'test')
+    thing = Thing.create(name: 'test')
     Delayed::Job.enqueue(TestJob.new(thing.id))
 
     # should not be able to queue a job that already exists
@@ -42,7 +42,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   def test_job_enqueue_with_existing_identifier_and_completed
-    thing = Thing.create(:name => 'test')
+    thing = Thing.create(name: 'test')
     job = Delayed::Job.enqueue(TestJob.new(thing.id))
     job.update_column(:completed_at, Time.now)
 
@@ -50,7 +50,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   def test_job_enqueue_with_existing_identifier_and_failed
-    thing = Thing.create(:name => 'test')
+    thing = Thing.create(name: 'test')
     job = Delayed::Job.enqueue(TestJob.new(thing.id))
     job.update_column(:failed_at, Time.now)
 
@@ -58,7 +58,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   def test_job_destroy
-    thing = Thing.create(:name => 'test')
+    thing = Thing.create(name: 'test')
     job = Delayed::Job.enqueue(TestJob.new(thing.id))
 
     assert job.completed_at.blank?
@@ -73,7 +73,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   def test_job_reserve_completed
-    thing = Thing.create(:name => 'test')
+    thing = Thing.create(name: 'test')
     worker = Delayed::Worker.new
     job = Delayed::Job.enqueue(TestJob.new(thing.id))
 
@@ -91,5 +91,4 @@ class JobTest < ActiveSupport::TestCase
     refute job.locked_at.nil?
     refute job.locked_by.nil?
   end
-
 end
