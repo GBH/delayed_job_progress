@@ -91,4 +91,20 @@ class JobTest < ActiveSupport::TestCase
     refute job.locked_at.nil?
     refute job.locked_by.nil?
   end
+
+  def test_status
+    thing = Thing.create(name: 'test')
+    job = Delayed::Job.enqueue(TestJob.new(thing.id))
+
+    assert_equal :queued, job.status
+
+    job.update_column(:locked_at, Time.now)
+    assert_equal :processing, job.status
+
+    job.update_column(:completed_at, Time.now)
+    assert_equal :completed, job.status
+
+    job.update_column(:failed_at, Time.now)
+    assert_equal :failed, job.status
+  end
 end

@@ -14,7 +14,9 @@ module DelayedJobProgress
     def test_index
       get :index
       assert_response :success
-      assert_equal 1, JSON.parse(response.body).count
+      data = JSON.parse(response.body)
+      assert_equal 1, data.count
+      assert_equal 'queued', data[0]['status']
     end
 
     def test_index_record_filtering
@@ -43,6 +45,7 @@ module DelayedJobProgress
       assert_equal 500,                 data['progress_current']
       assert_equal 1000,                data['progress_max']
       assert_equal 'initialized',       data['progress_state']
+      assert_equal 'queued',            data['status']
     end
 
     def test_show_failure

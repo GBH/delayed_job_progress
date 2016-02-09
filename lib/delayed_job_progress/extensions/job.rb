@@ -12,6 +12,13 @@ Delayed::Backend::ActiveRecord::Job.class_eval do
     where(where_sql, db_time_now, db_time_now - max_run_time, worker_name)
   end
 
+  # Helper method to easily grab state of the job
+  def status
+    failed_at.present?? :failed :
+    completed_at.present?? :completed :
+    locked_at.present?? :processing : :queued
+  end
+
   # When enqueue hook is executed, we need to look if there's an identifier provided
   # If there's another Delayed::Job out there with same identifier we need to bail
   def hook(name, *args)

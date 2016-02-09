@@ -12,11 +12,11 @@ module DelayedJobProgress
         jobs = jobs.where(identifier: params[:identifier])
       end
 
-      render json: jobs.all
+      render json: jobs.all, methods: :status
     end
 
     def show
-      render json: @job
+      render json: @job, methods: :status
     end
 
     def destroy
