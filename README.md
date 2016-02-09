@@ -43,12 +43,12 @@ class CustomUserJob < Struct.new(:user_id)
   end
 
   def perform
-    @job.update_column(:progress_state, 'working')
+    @job.update_column(:message, 'working')
     (0..100).each do |i|
       @user.do_a_thing(i)
       @job.update_column(:progress_current, i)
     end
-    @job.update_column(:progress_state, 'complete')
+    @job.update_column(:message, 'complete')
   end
 end
 
@@ -70,7 +70,7 @@ That job knows about object that spawned it:
 `Delayed::Job` records now have new attributes:
 * `progress_max` - default is `100`. You can change it to whatever during `enqueue`.
 * `progress_current` - default is `0`. You can manually increment it while job is running. Will be set to `process_max` when job completes.
-* `progress_state` - default is `nil`. Optional informational string.
+* `message` - default is `nil`. Optional informational string.
 * `completed_at` - when job is done this timestamp is recorded.
 
 This extension also introduces worker setting that keeps completed jobs around. This way you can keep list of completed jobs for a while. If you want to remove them, you need to `.destroy(:force)` them.

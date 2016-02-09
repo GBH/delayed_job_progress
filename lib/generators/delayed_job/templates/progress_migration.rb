@@ -8,7 +8,7 @@ class AddProgressToDelayedJobs < ActiveRecord::Migration
       t.string    :handler_class
       t.integer   :progress_current,  null: false, default: 0
       t.integer   :progress_max,      null: false, default: 100
-      t.string    :progress_state
+      t.string    :message
       t.datetime  :completed_at
     end
 

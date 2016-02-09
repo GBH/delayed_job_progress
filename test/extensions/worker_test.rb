@@ -20,10 +20,10 @@ class WorkerTest < ActiveSupport::TestCase
     job.reload
 
     assert job.completed_at.present?
-    assert_equal 1000, job.progress_current
-    assert_equal 'complete', job.progress_state
-    assert_equal nil, job.locked_by
-    assert_equal nil, job.locked_at
+    assert_equal 1000,        job.progress_current
+    assert_equal 'complete',  job.message
+    assert_equal nil,         job.locked_by
+    assert_equal nil,         job.locked_at
   end
 
   def test_run_job_and_destroy

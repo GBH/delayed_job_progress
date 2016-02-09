@@ -33,7 +33,7 @@ class TestJob < Struct.new(:thing_id)
     job.identifier        = 'unique_identifier'
     job.progress_max      = 1000
     job.progress_current  = 500
-    job.progress_state    = 'initialized'
+    job.message           = 'initialized'
     job.queue             = 'reports'
   end
 
@@ -42,7 +42,7 @@ class TestJob < Struct.new(:thing_id)
   end
 
   def perform
-    @job.update_column(:progress_state, 'complete')
+    @job.update_column(:message, 'complete')
   end
 end
 
