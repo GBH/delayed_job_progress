@@ -92,7 +92,7 @@ class JobTest < ActiveSupport::TestCase
     refute job.locked_by.nil?
   end
 
-  def test_status
+  def test_job_status
     thing = Thing.create(name: 'test')
     job = Delayed::Job.enqueue(TestJob.new(thing.id))
 
@@ -106,5 +106,25 @@ class JobTest < ActiveSupport::TestCase
 
     job.update_column(:failed_at, Time.now)
     assert_equal :failed, job.status
+  end
+
+  def test_job_error
+    thing = Thing.create(name: 'test')
+    thing.delay.explode
+
+    job = Delayed::Job.last
+    worker = Delayed::Worker.new
+    worker.run(job)
+
+    assert_equal 'hell', job.error_message
+
+    thing.delay.explode
+
+    job = Delayed::Job.last
+    job.error_message = 'custom error'
+    worker = Delayed::Worker.new
+    worker.run(job)
+
+    assert_equal 'custom error', job.error_message
   end
 end

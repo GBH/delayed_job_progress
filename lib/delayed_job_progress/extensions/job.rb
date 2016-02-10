@@ -43,6 +43,17 @@ Delayed::Backend::ActiveRecord::Job.class_eval do
     super
   end
 
+  # Introducing `error_message` attribute that excludes backtrace, also able to be manually set it before
+  # job errors out.
+  def error=(error)
+    @error = error
+
+    if self.respond_to?(:last_error=)
+      self.error_message ||= error.message
+      self.last_error = "#{error.message}\n#{error.backtrace.join("\n")}"
+    end
+  end
+
   def destroy_completed_jobs?
     payload_object.respond_to?(:destroy_completed_jobs?) ?
       payload_object.destroy_completed_jobs? :

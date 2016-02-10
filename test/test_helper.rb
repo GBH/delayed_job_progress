@@ -25,6 +25,9 @@ class Thing < ActiveRecord::Base
   def something
     update_column(:name, 'processed')
   end
+  def explode
+    raise 'hell'
+  end
 end
 
 class TestJob < Struct.new(:thing_id)
@@ -68,4 +71,3 @@ class ActiveSupport::TestCase
     end
   end
 end
-
