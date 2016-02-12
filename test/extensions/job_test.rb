@@ -30,33 +30,6 @@ class JobTest < ActiveSupport::TestCase
     assert_equal 'TestJob', job.handler_class
   end
 
-  def test_job_enqueue_with_existing_identifier
-    thing = Thing.create(name: 'test')
-    Delayed::Job.enqueue(TestJob.new(thing.id))
-
-    # should not be able to queue a job that already exists
-    # in this case we're trying to enqueue a job with `unique_identifier` again
-    assert_exception DelayedJobProgress::DuplicateJobError do
-      Delayed::Job.enqueue(TestJob.new(thing.id))
-    end
-  end
-
-  def test_job_enqueue_with_existing_identifier_and_completed
-    thing = Thing.create(name: 'test')
-    job = Delayed::Job.enqueue(TestJob.new(thing.id))
-    job.update_column(:completed_at, Time.now)
-
-    Delayed::Job.enqueue(TestJob.new(thing.id))
-  end
-
-  def test_job_enqueue_with_existing_identifier_and_failed
-    thing = Thing.create(name: 'test')
-    job = Delayed::Job.enqueue(TestJob.new(thing.id))
-    job.update_column(:failed_at, Time.now)
-
-    Delayed::Job.enqueue(TestJob.new(thing.id))
-  end
-
   def test_job_destroy
     thing = Thing.create(name: 'test')
     job = Delayed::Job.enqueue(TestJob.new(thing.id))

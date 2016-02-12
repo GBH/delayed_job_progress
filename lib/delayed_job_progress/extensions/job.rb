@@ -26,11 +26,6 @@ Delayed::Backend::ActiveRecord::Job.class_eval do
 
     if name == :enqueue
       self.handler_class = payload_object.class.to_s
-      if self.identifier.present?
-        if Delayed::Job.where(identifier: self.identifier, completed_at: nil, failed_at: nil).any?
-          raise DelayedJobProgress::DuplicateJobError, "Delayed::Job with identifier: #{self.identifier} already present"
-        end
-      end
     end
   end
 
