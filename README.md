@@ -68,11 +68,14 @@ That job knows about object that spawned it:
 ```
 
 `Delayed::Job` records now have new attributes:
-* `progress_max` - default is `100`. You can change it to whatever during `enqueue`.
-* `progress_current` - default is `0`. You can manually increment it while job is running. Will be set to `process_max` when job completes.
-* `message` - default is `nil`. Optional informational string.
-* `error_message` - Error message without backtrace. Also useful to set your own message.
-* `completed_at` - when job is done this timestamp is recorded.
+```
+`progress_max`      - default is `100`. You can change it to whatever during `enqueue`.
+`progress_current`  - default is `0`. You can manually increment it while job is running. Will be set to `process_max` when job completes.
+`message`           - default is `nil`. Optional informational string.
+`error_message`     - error message without backtrace. Also useful to set your own message.
+`completed_at`      - when job is done this timestamp is recorded.
+`identifier`        - you can assign something during `enqueue` so you can fetch that job later for display.
+```
 
 This extension also introduces worker setting that keeps completed jobs around. This way you can keep list of completed jobs for a while. If you want to remove them, you need to `.destroy(:force)` them.
 ```
