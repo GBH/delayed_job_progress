@@ -1,7 +1,7 @@
 # DelayedJobProgress
 [![Gem Version](https://img.shields.io/gem/v/delayed_job_progress.svg?style=flat)](http://rubygems.org/gems/delayed_job_progress) [![Gem Downloads](https://img.shields.io/gem/dt/delayed_job_progress.svg?style=flat)](http://rubygems.org/gems/delayed_job_progress) [![Build Status](https://img.shields.io/travis/GBH/delayed_job_progress.svg?style=flat)](https://travis-ci.org/GBH/delayed_job_progress)
 
-Extension for [Delayed::Job](https://github.com/collectiveidea/delayed_job) that allows better tracking of jobs!
+Extension for [Delayed::Job](https://github.com/collectiveidea/delayed_job) that allows for better tracking of jobs!
 
 ![progress](https://raw.githubusercontent.com/GBH/delayed_job_progress/master/progress.gif)
 
