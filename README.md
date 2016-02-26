@@ -3,6 +3,8 @@
 
 Extension for [Delayed::Job](https://github.com/collectiveidea/delayed_job) that allows better tracking of jobs!
 
+![progress](https://raw.githubusercontent.com/GBH/delayed_job_progress/master/progress.gif)
+
 ## Setup
 
 * add to Gemfile: `gem 'delayed_job_progress'`
@@ -92,4 +94,6 @@ DELETE /jobs/<id>`      - If job is stuck/failed, we can remove it
 POST /jobs/<id>/reload` - Restart failed job
 ```
 
-![progress](https://raw.githubusercontent.com/GBH/delayed_job_progress/master/progress.gif)
+---
+
+Copyright 2016 Oleg Khabarov
