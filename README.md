@@ -71,13 +71,14 @@ That job knows about object that spawned it:
 
 `Delayed::Job` records now have new attributes:
 ```
-`progress_max`      - default is `100`. You can change it to whatever during `enqueue`.
-`progress_current`  - default is `0`. You can manually increment it while job is running. Will be set to `process_max` when job completes.
-`message`           - default is `nil`. Optional informational string.
-`error_message`     - error message without backtrace. Also useful to set your own message.
-`completed_at`      - when job is done this timestamp is recorded.
-`identifier`        - you can assign something during `enqueue` so you can fetch that job later for display.
-`status`            - virtual attribute. Can be either: `queued`, `processing`, `completed` or `failed`
+`progress_max`      - Default is `100`. You can change it to whatever during `enqueue`.
+`progress_current`  - Default is `0`. You can manually increment it while job is running.
+                      Will be set to `process_max` when job completes.
+`message`           - Default is `nil`. Optional informational string.
+`error_message`     - Error message without backtrace. Also useful to set your own message.
+`completed_at`      - When job is done this timestamp is recorded.
+`identifier`        - You can assign something during `enqueue` so you can fetch that job later for display.
+`status`            - Virtual read-only attribute. Can be `queued`, `processing`, `completed` or `failed`
 ```
 
 This extension also introduces worker setting that keeps completed jobs around. This way you can keep list of completed jobs for a while. If you want to remove them, you need to `.destroy(:force)` them.
@@ -87,12 +88,24 @@ Delayed::Worker.destroy_completed_jobs = false
 
 ## Jobs Controller
 
+You may mount jobs controller in your routes by adding:
+
+```ruby
+mount DelayedJobProgress::Engine => '/delayed'
 ```
-GET /jobs               - List all jobs. Can filter based on associated record via `record_type` and `record_id` parameters. `identifier` parameter can be used as well
+
+Following JSON serving end-points will become available:
+
+```
+GET /jobs               - List all jobs. Can filter based on associated record via `record_type` and `record_id`
+                          parameters. `identifier` parameter can be used as well
 GET /jobs/<id>          - Status of a job. Will see all the Delayed::Job attributes including things like progress
 DELETE /jobs/<id>`      - If job is stuck/failed, we can remove it
 POST /jobs/<id>/reload` - Restart failed job
 ```
+
+## Front-end
+This gem doesn't have a front-end component to show fancy progress bar. Common way to accomplish that would be to create a javascript poller that would periodically hit `/jobs/<id>` enpoint and update progress bar with progress data + messages.
 
 ---
 
