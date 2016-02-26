@@ -91,3 +91,5 @@ GET /jobs/<id>          - Status of a job. Will see all the Delayed::Job attribu
 DELETE /jobs/<id>`      - If job is stuck/failed, we can remove it
 POST /jobs/<id>/reload` - Restart failed job
 ```
+
+![progress](https://raw.githubusercontent.com/GBH/delayed_job_progress/master/progress.gif)
