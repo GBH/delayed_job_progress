@@ -75,6 +75,7 @@ That job knows about object that spawned it:
 `error_message`     - error message without backtrace. Also useful to set your own message.
 `completed_at`      - when job is done this timestamp is recorded.
 `identifier`        - you can assign something during `enqueue` so you can fetch that job later for display.
+`status`            - virtual attribute. Can be either: `queued`, `processing`, `completed` or `failed`
 ```
 
 This extension also introduces worker setting that keeps completed jobs around. This way you can keep list of completed jobs for a while. If you want to remove them, you need to `.destroy(:force)` them.
