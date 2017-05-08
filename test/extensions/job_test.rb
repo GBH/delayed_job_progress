@@ -12,10 +12,10 @@ class JobTest < ActiveSupport::TestCase
 
     job = Delayed::Job.last
     assert_equal thing, job.record
-    assert_equal 0, job.progress_current
+    assert_equal 0,   job.progress_current
     assert_equal 100, job.progress_max
-    assert_equal nil, job.identifier
-    assert_equal nil, job.queue
+    assert_nil        job.identifier
+    assert_nil        job.queue
   end
 
   def test_job_custom
