@@ -1,2 +1,4 @@
 language: ruby
-rvm: 2.2.1
+rvm: 2.4.1
+gemfile:
+  test/Gemfile.rails-5.0
