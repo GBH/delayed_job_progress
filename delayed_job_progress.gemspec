@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split("\n")
   s.test_files  = Dir["test/**/*"]
 
-  s.add_dependency 'rails',                     '>= 4.0.0', '< 5'
+  s.add_dependency 'rails',                     '>= 4.0.0'
   s.add_dependency 'delayed_job',               '>= 4.0'
   s.add_dependency 'delayed_job_active_record', '>= 4.0'
 
