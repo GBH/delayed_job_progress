@@ -109,4 +109,4 @@ This gem doesn't have a front-end component to show fancy progress bar. Common w
 
 ---
 
-Copyright 2016 Oleg Khabarov
+Copyright 2016-17 Oleg Khabarov
